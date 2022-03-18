@@ -244,7 +244,7 @@ namespace Unity.XR.PXR
             PXR_Plugin.System.UPxr_InitToBService();
             PXR_Plugin.System.UPxr_SetUnityObjectName(objectName);
             // this call results a NullReferenceException: Object reference not set to an instance of an object
-            //PXR_Plugin.System.UPxr_InitBatteryVolClass();
+            PXR_Plugin.System.UPxr_InitBatteryVolClass();
         }
 
         /// <summary>
@@ -253,6 +253,11 @@ namespace Unity.XR.PXR
         public static void BindSystemService()
         {
             Debug.Log("playController BindSystemService");
+            // commenting out PXR_Plugin.System.UPxr_InitBatteryVolClass(); in InitSystemService
+            // this gets called, and throws the 
+            // AndroidJavaException: java.lang.NullPointerException: Attempt to
+            // invoke virtual method 'java.lang.String
+            // android.content.Context.getPackageName()' on a null object reference
             PXR_Plugin.System.UPxr_BindSystemService();
             
         }

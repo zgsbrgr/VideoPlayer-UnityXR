@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using System;
+using Unity.XR.PXR;
+
 
 public class playController : MonoBehaviour {
 
@@ -21,6 +23,22 @@ public class playController : MonoBehaviour {
 
     public Button fornt;          
     public Button back;
+
+    private void Awake() 
+    {
+        // simple function call on PXR_System to check if it succeeds
+        var sdk = PXR_System.GetSDKVersion();
+        Debug.Log("playController SDK version:" + sdk);
+        PXR_System.InitSystemService("Canvas2");
+        PXR_System.BindSystemService();
+    }
+    
+    
+    private void OnDestory()
+    {
+        PXR_System.UnBindSystemService();
+    }
+
 
     private void Start()
     {
@@ -57,6 +75,11 @@ public class playController : MonoBehaviour {
     public void Back()
     {
         videoPlayer.time -= 10f;
+    }
+    
+    public void toBServiceBind(string s) {
+        Debug.Log("playController Bind success."); 
+        PXR_System.PropertySetScreenOffDelay(ScreenOffDelayTimeEnum.NEVER,null);
     }
 
 
